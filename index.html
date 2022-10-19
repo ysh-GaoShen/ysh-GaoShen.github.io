@@ -1,14 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Welcome to my page</title>
 </head>
+
 <body>
+    <script>
+        function fun(gongji, riguang, zishen, gatk, n) {
+            return (gongji * 1.8 * (0.5 + 0.1 * riguang + 0.25) + zishen / (gatk - 0.45 - 0.1 * n)) * (gatk + 0.05) * (1 + 0.3 * gatk) * (1 + 0.03 * gatk) ** 3 * (1 + 0.05 * gatk)
+        }
+        function g(boss, zhanshi, n, n2) {
+            return 1 + 0.2 + zhanshi + 0.4 + 0.15 + 0.03 * boss + 0.1 * n + 0.05 * n2 + 1
+        }
+        function calc() {
+            var gongji = document.getElementById('gongji').value;
+            var riguang = document.getElementById('riguang').value;
+            var zishen = document.getElementById('zishen').value;
+            var n = document.getElementById('n').value;
+            var n2 = document.getElementById('n2').value;
+            var boss = document.getElementById('boss').value;
+            var zhanshi = document.getElementById('zhanshi').value;
+            var gatk = g(boss, zhanshi, n, n2)
+            document.getElementById('result').value = fun(gongji, riguang, zishen, gatk, n);
+        }
+    </script>
     <a href="https://github.com/ysh-GaoShen">my github</a>
     <h1>This is index page.</h1>
     <a href="test.html">test page</a>
     <h1>Some bookmarks</h1>
     <a href="https://www.cnblogs.com/kerrycode/p/11344506.html">iotop 命令和参数</a>
+    <p>未穿铠甲的铠甲攻击:<input id='gongji' value=0></p>
+    <p>日光数:<input id='riguang' value=0></p>
+    <p>未穿铠甲的自身攻击:<input id='zishen' value=0></p>
+    <p>在场怪物数:<input id='n' value=0></p>
+    <p>白泽加成在场怪物数:<input id='n2' value=0></p>
+    <p>击败boss数:<input id='boss' value=0></p>
+    <p>战士套加成:<input id='zhanshi' value=0.06 value=0></p>
+    <button onclick="calc()">计算</button>
+    <p>最终攻击力<input id='result'></p>
+
 </body>
+
 </html>
