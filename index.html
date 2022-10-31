@@ -12,7 +12,7 @@
             return (gongji * 1.8 * (0.5 + 0.1 * riguang + 0.25) + zishen / (gatk - yaxue - 0.1 * n)) * (gatk + (0.5 - yaxue)) * (1 + 0.3 * gatk) * (1 + 0.03 * gatk) ** 3 * (1 + 0.05 * gatk)
         }
         function g(boss, zhanshi, n, n2, yaxue) {
-            return 1 + 0.2 + zhanshi + yaxue + 0.15 + 0.03 * boss + 0.1 * n + 0.05 * n2 + 1
+            return 1 + 0.2 + zhanshi + yaxue + 0.15 + 0.03 * boss + 0.1 * n + 0.05 * n2
         }
         function calc() {
             var gongji = (-document.getElementById('gongji').value) * -1;
