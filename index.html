@@ -8,23 +8,40 @@
 
 <body>
     <script>
-        function fun(gongji, riguang, zishen, gatk, n, yaxue) {
-            return (gongji * 1.8 * (0.5 + 0.1 * riguang + 0.25) + zishen / (gatk - yaxue - 0.1 * n)) * (gatk + (0.5 - yaxue)) * (1 + 0.3 * gatk) * (1 + 0.03 * gatk) ** 3 * (1 + 0.05 * gatk)
+        function fun(gongji, zhenrong, longli, riguang, zishen, gatk, n, yaxue) {
+            let F = gongji;
+            let A = zhenrong;
+            let I = longli;
+            let G = riguang;
+            let H = n;
+            let T = zishen;
+            let U = gatk;
+            return (F * (A.includes('信')?1+10/15*(1+0.2*longli):1) * (0.5 + 0.1 * G + 0.25) + T / (U - yaxue - 0.1 * H - (zhenrong.includes('十')?1:0))) * (U + (0.5 - yaxue)) * (1 + 0.3 * U) * (1 + 0.03 * U) ** 3 * (A.includes('武')?(1 + 0.05 * U):1)
         }
-        function g(boss, zhanshi, n, n2, yaxue) {
-            return 1 + 0.2 + zhanshi + yaxue + 0.15 + 0.03 * boss + 0.1 * n + 0.05 * n2
+        function g(boss, zhanshi, n, yaxue, zhenrong) {
+            return 1 + 0.2 + zhanshi + yaxue + (0.15 + 0.03 * boss) + 0.1 * n + (zhenrong.includes('十')?0.8:0)
         }
         function calc() {
+            var selectElement = document.getElementById("mySelect");
+            var zhenrong = selectElement.options[selectElement.selectedIndex].value;
             var gongji = (-document.getElementById('gongji').value) * -1;
             var riguang = (-document.getElementById('riguang').value) * -1;
             var zishen = (-document.getElementById('zishen').value) * -1;
             var n = (-document.getElementById('n').value) * -1;
-            var n2 = (-document.getElementById('n2').value) * -1;
+            var longli = (-document.getElementById('longli').value) * -1;
             var boss = (-document.getElementById('boss').value) * -1;
             var zhanshi = (-document.getElementById('zhanshi').value) * -1;
             var yaxue = (-document.getElementById('yaxue').value) * -1;
-            var gatk = g(boss, zhanshi, n, n2, yaxue)
-            document.getElementById('result').value = fun(gongji, riguang, zishen, gatk, n, yaxue);
+            var gatk = g(boss, zhanshi, n, yaxue, zhenrong);
+            let atk = fun(gongji, riguang, zishen, gatk, n, yaxue);
+            let jifen = atk * 39.36;
+            let fenxiang_gold = jifen*0.196/1000000;
+            let jiesuan_gold = Math.floor((30+8)*(jifen>1000000?6000000-Math.floor(625000000/Math.floor(jifen/40000+100)):jifen)/50,0)/1000000;
+            let total_gold = fenxiang_gold + jiesuan_gold;
+            document.getElementById('result').value = atk;
+            document.getElementById('fenxiang_gold').value = fenxiang_gold;
+            document.getElementById('jiesuan_gold').value = jiesuan_gold;
+            document.getElementById('total_gold').value = total_gold;
         }
     </script>
     <a href="https://github.com/ysh-GaoShen">my github</a>
@@ -32,16 +49,23 @@
     <a href="test.html">test page</a>
     <h1>Some bookmarks</h1>
     <a href="https://www.cnblogs.com/kerrycode/p/11344506.html">iotop 命令和参数</a>
+    <p><select id="mySelect">
+  <option value="帝 十 信 女王">帝 十 信 女王</option>
+  <option value="武 女王 女娲 信">武 女王 女娲 信</option>
+</select></p>
     <p>未穿铠甲的铠甲攻击:<input type="number" id='gongji' value=0></p>
     <p>日光数:<input type="number" id='riguang' value=0></p>
     <p>未穿铠甲的自身攻击:<input type="number" id='zishen' value=0></p>
-    <p>在场怪物数:<input type="number" id='n' value=0></p>
-    <p>白泽加成在场怪物数:<input type="number" id='n2' value=0></p>
+    <p>龙力:<input type="bool" id='longli' value=true></p>
+    <p>出图怪物数:<input type="number" id='n' value=0></p>
     <p>击败boss数:<input type="number" id='boss' value=0></p>
-    <p>战士套加成:<input type="number" id='zhanshi' value=0.06 value=0></p>
-    <p>破碎加成:<input type="number" id='yaxue' value=0.4 value=0></p>
+    <p>骑士套加成:<input type="number" id='zhanshi' value=0.08></p>
+    <p>破碎加成:<input type="number" id='yaxue' value=0.45></p>
     <button onclick="calc()">计算</button>
     <p>最终攻击力<input type="number" id='result'></p>
+    <p>分享金币<input type="number" id='fenxiang_gold'></p>
+    <p>结算金币<input type="number" id='jiesuan_gold'></p>
+    <p>总金币<input type="number" id='total_gold'></p>
 
 </body>
 
