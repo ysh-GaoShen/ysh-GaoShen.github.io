@@ -23,7 +23,7 @@
         }
         function calc() {
             var selectElement = document.getElementById("mySelect");
-            var zhenrong = selectElement.options[selectElement.selectedIndex].value;
+            var zhenrong = selectElement.selectedOptions[0].value;
             var gongji = (-document.getElementById('gongji').value) * -1;
             var riguang = (-document.getElementById('riguang').value) * -1;
             var zishen = (-document.getElementById('zishen').value) * -1;
