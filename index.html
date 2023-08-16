@@ -58,6 +58,7 @@
     <p>日光数：<input type="number" id="riguang" value="0"></p>
     <p>未穿铠甲的自身攻击：<input type="number" id="zishen" value="0"></p>
     <p>龙力：<input type="checkbox" id="longli" checked></p>
+    <p>2%药：<input type="checkbox" id="yao" checked></p>
     <p>出图怪物数：<input type="number" id="n" value="0"></p>
     <p>击败boss数：<input type="number" id="boss" value="0"></p>
     <p>骑士套加成：<input type="number" id="zhanshi" value="0.08"></p>
@@ -109,23 +110,17 @@
             var zishen = -document.getElementById("zishen").value * -1;
             var n = -document.getElementById("n").value * -1;
             var longli = -document.getElementById("longli").checked * -1;
+            var yao = -document.getElementById("yao").checked * -1;
             var boss = -document.getElementById("boss").value * -1;
             var zhanshi = -document.getElementById("zhanshi").value * -1;
             var yaxue = -document.getElementById("yaxue").value * -1;
             var gatk = g(boss, zhanshi, n, yaxue, zhenrong);
             let atk = fun(gongji, zhenrong, longli, riguang, zishen, gatk, n, yaxue);
+            atk = yao ? atk * (1 + 0.02 * gatk): atk;
             let jifen = atk * 39.36;
             let fenxiang_gold = (jifen * 0.196) / 1000000;
             let jiesuan_gold =
-                Math.floor(
-                    ((30 + 8) *
-                        (jifen > 1000000
-                            ? 6000000 -
-                              Math.floor(625000000 / Math.floor(jifen / 40000 + 100))
-                            : jifen)) /
-                        50,
-                    0
-                ) / 1000000;
+                Math.floor(((30 + 8) * (jifen > 1000000 ? 1000000 + Math.floor((jifen - 1000000) * 4200000 / (jifen + 7200000)) : jifen)) / 50, 0) / 1000000;
             let total_gold = fenxiang_gold + jiesuan_gold;
             document.getElementById("result").value = atk;
             document.getElementById("fenxiang_gold").value = fenxiang_gold;
