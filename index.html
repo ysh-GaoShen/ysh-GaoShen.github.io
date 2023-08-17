@@ -65,6 +65,7 @@
     <p>破碎加成：<input type="number" id="yaxue" value="0.45"></p>
     <button onclick="calc()">计算</button>
     <p>最终攻击力：<input type="number" id="result" readonly></p>
+    <p>积分: <input type="number" id="jifen" readonly></p>
     <p>分享金币：<input type="number" id="fenxiang_gold" readonly></p>
     <p>结算金币：<input type="number" id="jiesuan_gold" readonly></p>
     <p>总金币：<input type="number" id="total_gold" readonly></p>
@@ -123,6 +124,7 @@
                 Math.floor(((30 + 8) * (jifen > 1000000 ? 1000000 + Math.floor((jifen - 1000000) * 4200000 / (jifen + 7200000)) : jifen)) / 50, 0) / 1000000;
             let total_gold = fenxiang_gold + jiesuan_gold;
             document.getElementById("result").value = atk;
+            document.getElementById("jifen").value = jifen;
             document.getElementById("fenxiang_gold").value = fenxiang_gold;
             document.getElementById("jiesuan_gold").value = jiesuan_gold;
             document.getElementById("total_gold").value = total_gold;
